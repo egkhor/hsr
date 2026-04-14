@@ -213,12 +213,6 @@ filter: drop-shadow(0 0 30px rgba(0,80,200,0.8)) drop-shadow(0 0 60px rgba(0,60,
 animation: trainFloat 4s ease-in-out infinite;
 }
 
-.train svg {
-  display: block;
-  width: auto;
-  height: 100%; /* Scale based on the container height */
-}  
-  
 @keyframes trainFloat {
 0%, 100% { transform: translateX(-50%) translateY(0px); }
 50% { transform: translateX(-50%) translateY(-3px); }
@@ -228,6 +222,7 @@ animation: trainFloat 4s ease-in-out infinite;
 .loco {
 position: relative;
 width: 260px;
+height: 110px;
 flex-shrink: 0;
 }
 
@@ -240,6 +235,7 @@ overflow: visible;
 /* ── CARGO CARS ── */
 .car {
 position: relative;
+height: 90px;
 flex-shrink: 0;
 margin-left: -2px;
 }
@@ -249,17 +245,10 @@ height: 100%;
 overflow: visible;
 }
 
-.loco, .car, .pax, .tail {
-  height: 110px; /* Force all containers to match the loco height */
-  display: flex;
-  align-items: flex-end; /* Align the contents to the bottom of the 110px box */
-  flex-shrink: 0;
-  margin-left: -1px; /* Slight overlap to prevent gaps at high speed */
-}
-  
 /* ── PASSENGER CARS ── */
 .pax {
 position: relative;
+height: 88px;
 flex-shrink: 0;
 margin-left: -2px;
 }
@@ -273,6 +262,7 @@ overflow: visible;
 .tail {
 position: relative;
 width: 140px;
+height: 100px;
 flex-shrink: 0;
 margin-left: -2px;
 }
