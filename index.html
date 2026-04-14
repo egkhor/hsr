@@ -232,30 +232,21 @@ height: 100%;
 overflow: visible;
 }
 
-/* ── CARGO CARS ── */
-.car {
-position: relative;
-height: 90px;
-flex-shrink: 0;
-margin-left: -2px;
+/* ── UNIFIED CARRIAGE STANDARDS ── */
+.pax, .car {
+  position: relative;
+  width: 180px;      /* Standard width for all intermediate cars */
+  height: 110px;     /* Matches .loco height to ensure alignment */
+  flex-shrink: 0;
+  margin-left: -2px; /* Prevent gaps between carriages */
+  display: flex;
+  align-items: flex-end; /* Pushes the SVG content to the bottom */
 }
 
-.car svg {
-height: 100%;
-overflow: visible;
-}
-
-/* ── PASSENGER CARS ── */
-.pax {
-position: relative;
-height: 88px;
-flex-shrink: 0;
-margin-left: -2px;
-}
-
-.pax svg {
-height: 100%;
-overflow: visible;
+.pax svg, .car svg {
+  width: 100%;
+  height: 100%;      /* Scale SVG to fill the 110px height */
+  overflow: visible;
 }
 
 /* ── TAIL ── */
@@ -664,387 +655,113 @@ image-rendering: crisp-edges;
 <div class="train-scene">
   <div class="train" id="train">
 
-```
-<!-- Motion blur -->
 <div class="motion-blur"></div>
 <div class="ground-dust"></div>
 
-<!-- ══ LOCOMOTIVE (Eurostar-style pointed nose) ══ -->
 <div class="loco">
   <svg viewBox="0 0 260 110" fill="none" overflow="visible">
     <defs>
       <linearGradient id="locoBody" x1="0" y1="0" x2="0" y2="1">
-        <stop offset="0%" stop-color="#d0dce8"/>
-        <stop offset="40%" stop-color="#e8f0f8"/>
-        <stop offset="75%" stop-color="#c0ccd8"/>
-        <stop offset="100%" stop-color="#8899aa"/>
+        <stop offset="0%" stop-color="#d0dce8"/><stop offset="40%" stop-color="#e8f0f8"/><stop offset="75%" stop-color="#c0ccd8"/><stop offset="100%" stop-color="#8899aa"/>
       </linearGradient>
       <linearGradient id="locoTop" x1="0" y1="0" x2="0" y2="1">
-        <stop offset="0%" stop-color="#1a2a40"/>
-        <stop offset="100%" stop-color="#0a1520"/>
+        <stop offset="0%" stop-color="#1a2a40"/><stop offset="100%" stop-color="#0a1520"/>
       </linearGradient>
       <linearGradient id="noseGrad" x1="0" y1="0" x2="1" y2="0">
-        <stop offset="0%" stop-color="#a0b0c0"/>
-        <stop offset="60%" stop-color="#dde8f0"/>
-        <stop offset="100%" stop-color="#c0ccd8"/>
+        <stop offset="0%" stop-color="#a0b0c0"/><stop offset="60%" stop-color="#dde8f0"/><stop offset="100%" stop-color="#c0ccd8"/>
       </linearGradient>
       <linearGradient id="glassGrad" x1="0" y1="0" x2="1" y2="1">
-        <stop offset="0%" stop-color="rgba(120,180,240,0.6)"/>
-        <stop offset="100%" stop-color="rgba(60,120,200,0.3)"/>
+        <stop offset="0%" stop-color="rgba(120,180,240,0.6)"/><stop offset="100%" stop-color="rgba(60,120,200,0.3)"/>
       </linearGradient>
       <linearGradient id="blueStripe" x1="0" y1="0" x2="1" y2="0">
-        <stop offset="0%" stop-color="#0044bb"/>
-        <stop offset="100%" stop-color="#0066dd"/>
+        <stop offset="0%" stop-color="#0044bb"/><stop offset="100%" stop-color="#0066dd"/>
       </linearGradient>
       <linearGradient id="orangeStripe" x1="0" y1="0" x2="1" y2="0">
-        <stop offset="0%" stop-color="#cc4400"/>
-        <stop offset="100%" stop-color="#ff6600"/>
+        <stop offset="0%" stop-color="#cc4400"/><stop offset="100%" stop-color="#ff6600"/>
       </linearGradient>
-      <filter id="glow">
-        <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
-        <feMerge><feMergeNode in="coloredBlur"/><feMergeNode in="SourceGraphic"/></feMerge>
-      </filter>
-      <filter id="headlightGlow">
-        <feGaussianBlur stdDeviation="5" result="coloredBlur"/>
-        <feMerge><feMergeNode in="coloredBlur"/><feMergeNode in="SourceGraphic"/></feMerge>
-      </filter>
+      <filter id="glow"><feGaussianBlur stdDeviation="3" result="coloredBlur"/><feMerge><feMergeNode in="coloredBlur"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+      <filter id="headlightGlow"><feGaussianBlur stdDeviation="5" result="coloredBlur"/><feMerge><feMergeNode in="coloredBlur"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
     </defs>
 
-    <!-- ── BODY ── -->
-    <!-- Main fuselage -->
     <path d="M50,15 L245,15 L245,88 L50,88 Z" fill="url(#locoBody)" stroke="#9aabad" stroke-width="0.5"/>
-
-    <!-- Pointed nose (Eurostar style) -->
     <path d="M50,15 Q20,25 5,50 Q20,75 50,88 L50,15 Z" fill="url(#noseGrad)" stroke="#8899aa" stroke-width="0.5"/>
-
-    <!-- Roof section (dark) -->
     <rect x="50" y="10" width="195" height="20" rx="3" fill="url(#locoTop)"/>
     <path d="M50,10 Q30,12 15,30 L50,30 Z" fill="url(#locoTop)"/>
-
-    <!-- Blue accent stripe (Eurostar style) -->
     <rect x="5" y="42" width="240" height="14" fill="url(#blueStripe)" opacity="0.95"/>
-    <!-- Nose blue -->
-    <path d="M5,42 Q2,48 5,56 L5,42 Z" fill="#0044bb"/>
-
-    <!-- Orange lower accent -->
     <rect x="50" y="75" width="195" height="8" fill="url(#orangeStripe)" opacity="0.85"/>
+    
+    <image href="https://egkhor.com.my/home/wp-content/uploads/2026/02/cropped-IMG_7598.png" x="155" y="46" width="70" height="26" preserveAspectRatio="xMidYMid meet" style="filter: brightness(1.1) contrast(1.05);"/>
 
-    <!-- ── WINDSCREEN ── -->
-    <path d="M50,18 Q35,22 22,38 L50,38 Z" fill="url(#glassGrad)" stroke="rgba(160,210,255,0.4)" stroke-width="0.8"/>
-    <!-- Glass reflection -->
-    <path d="M50,20 Q38,24 26,36 L38,36 Q45,28 50,24 Z" fill="rgba(255,255,255,0.2)"/>
-
-    <!-- ── SIDE WINDOWS (passenger section) ── -->
-    <rect x="80"  y="20" width="26" height="16" rx="2" fill="url(#glassGrad)" stroke="rgba(160,200,240,0.5)" stroke-width="0.8"/>
-    <rect x="116" y="20" width="26" height="16" rx="2" fill="url(#glassGrad)" stroke="rgba(160,200,240,0.5)" stroke-width="0.8"/>
-    <rect x="152" y="20" width="26" height="16" rx="2" fill="url(#glassGrad)" stroke="rgba(160,200,240,0.5)" stroke-width="0.8"/>
-    <rect x="188" y="20" width="26" height="16" rx="2" fill="url(#glassGrad)" stroke="rgba(160,200,240,0.5)" stroke-width="0.8"/>
-    <rect x="220" y="20" width="20" height="16" rx="2" fill="url(#glassGrad)" stroke="rgba(160,200,240,0.5)" stroke-width="0.8"/>
-    <!-- Window reflections -->
-    <rect x="81"  y="21" width="8" height="5" rx="1" fill="rgba(255,255,255,0.25)"/>
-    <rect x="117" y="21" width="8" height="5" rx="1" fill="rgba(255,255,255,0.25)"/>
-    <rect x="153" y="21" width="8" height="5" rx="1" fill="rgba(255,255,255,0.25)"/>
-    <rect x="189" y="21" width="8" height="5" rx="1" fill="rgba(255,255,255,0.25)"/>
-
-    <!-- ── HEADLIGHTS ── -->
-    <circle cx="12" cy="42" r="5" fill="#fffce0" filter="url(#headlightGlow)" opacity="0.9"/>
-    <circle cx="12" cy="58" r="4" fill="#ffe080" filter="url(#headlightGlow)" opacity="0.8"/>
-    <!-- Headlight beam -->
-    <path d="M12,42 L-30,28 L-20,56 L12,42 Z" fill="rgba(255,250,200,0.06)"/>
-
-    <!-- ── EGK LOGO EMBEDDED ── -->
-    <image href="https://egkhor.com.my/home/wp-content/uploads/2026/02/cropped-IMG_7598.png"
-      x="155" y="46" width="70" height="26"
-      class="egk-logo-img"
-      preserveAspectRatio="xMidYMid meet"
-      style="filter: brightness(1.1) contrast(1.05);"/>
-
-    <!-- ── PANTOGRAPH ── -->
-    <line x1="180" y1="10" x2="175" y2="-18" stroke="#6688aa" stroke-width="1.5"/>
-    <line x1="175" y1="-18" x2="160" y2="-28" stroke="#6688aa" stroke-width="1.5"/>
-    <line x1="160" y1="-28" x2="195" y2="-28" stroke="#8899bb" stroke-width="2"/>
-    <line x1="175" y1="-18" x2="190" y2="-28" stroke="#6688aa" stroke-width="1"/>
-    <circle cx="160" cy="-28" r="2" fill="#aabbcc"/>
-    <circle cx="195" cy="-28" r="2" fill="#aabbcc"/>
-    <!-- Pantograph spark -->
-    <g filter="url(#glow)" style="animation: spark 0.15s linear infinite alternate;">
-      <circle cx="177" cy="-28" r="3" fill="#88ddff" opacity="0.9"/>
-      <circle cx="177" cy="-28" r="1.5" fill="white"/>
-    </g>
-
-    <!-- ── UNDERCARRIAGE ── -->
-    <rect x="20" y="85" width="225" height="8" rx="2" fill="#1a2030" stroke="#2a3040" stroke-width="0.5"/>
-
-    <!-- ── BOGIES / WHEELS ── -->
-    <!-- Front bogie -->
     <g transform="translate(60, 93)">
       <rect x="-25" y="0" width="50" height="8" rx="2" fill="#1a2535"/>
       <circle cx="-14" cy="10" r="8" fill="#1a2030" stroke="#3a5070" stroke-width="1.5" class="wheel-spin"/>
-      <circle cx="-14" cy="10" r="3" fill="#2a3a50"/>
-      <line x1="-14" y1="2" x2="-14" y2="18" stroke="#3a5070" stroke-width="1" class="wheel-spin" style="transform-origin:-14px 10px"/>
-      <line x1="-22" y1="10" x2="-6" y2="10" stroke="#3a5070" stroke-width="1" class="wheel-spin" style="transform-origin:-14px 10px"/>
       <circle cx="14" cy="10" r="8" fill="#1a2030" stroke="#3a5070" stroke-width="1.5" class="wheel-spin"/>
-      <circle cx="14" cy="10" r="3" fill="#2a3a50"/>
-      <line x1="14" y1="2" x2="14" y2="18" stroke="#3a5070" stroke-width="1" class="wheel-spin" style="transform-origin:14px 10px"/>
-      <line x1="6" y1="10" x2="22" y2="10" stroke="#3a5070" stroke-width="1" class="wheel-spin" style="transform-origin:14px 10px"/>
     </g>
-    <!-- Rear bogie -->
     <g transform="translate(200, 93)">
       <rect x="-25" y="0" width="50" height="8" rx="2" fill="#1a2535"/>
       <circle cx="-14" cy="10" r="8" fill="#1a2030" stroke="#3a5070" stroke-width="1.5" class="wheel-spin"/>
-      <circle cx="-14" cy="10" r="3" fill="#2a3a50"/>
-      <line x1="-14" y1="2" x2="-14" y2="18" stroke="#3a5070" stroke-width="1" class="wheel-spin" style="transform-origin:-14px 10px"/>
-      <line x1="-22" y1="10" x2="-6" y2="10" stroke="#3a5070" stroke-width="1" class="wheel-spin" style="transform-origin:-14px 10px"/>
       <circle cx="14" cy="10" r="8" fill="#1a2030" stroke="#3a5070" stroke-width="1.5" class="wheel-spin"/>
-      <circle cx="14" cy="10" r="3" fill="#2a3a50"/>
-      <line x1="14" y1="2" x2="14" y2="18" stroke="#3a5070" stroke-width="1" class="wheel-spin" style="transform-origin:14px 10px"/>
-      <line x1="6" y1="10" x2="22" y2="10" stroke="#3a5070" stroke-width="1" class="wheel-spin" style="transform-origin:14px 10px"/>
     </g>
-
-    <!-- Ground reflection/glow -->
-    <ellipse cx="130" cy="108" rx="120" ry="6" fill="rgba(0,80,200,0.2)" filter="url(#glow)"/>
-
-    <!-- Speed indicator light strip -->
-    <rect x="50" y="56" width="195" height="3" rx="1" fill="rgba(0,150,255,0.4)"/>
   </svg>
 </div>
 
-<!-- ══ PASSENGER CAR 1 ══ -->
 <div class="pax">
-  <svg viewBox="0 0 180 88" fill="none" overflow="visible">
-    <defs>
-      <linearGradient id="paxBody" x1="0" y1="0" x2="0" y2="1">
-        <stop offset="0%" stop-color="#c8d8e8"/>
-        <stop offset="35%" stop-color="#e0ecf8"/>
-        <stop offset="72%" stop-color="#b8c8d8"/>
-        <stop offset="100%" stop-color="#7888a0"/>
-      </linearGradient>
-    </defs>
-    <!-- Body -->
-    <rect x="0" y="12" width="180" height="70" fill="url(#paxBody)" stroke="#9aabad" stroke-width="0.5"/>
-    <!-- Roof -->
-    <rect x="0" y="8" width="180" height="18" rx="2" fill="#1a2a40"/>
-    <!-- Blue stripe -->
-    <rect x="0" y="40" width="180" height="13" fill="#0044bb" opacity="0.9"/>
-    <!-- Orange lower -->
-    <rect x="0" y="73" width="180" height="7" fill="#ff6600" opacity="0.85"/>
-    <!-- Windows -->
-    <rect x="10"  y="16" width="22" height="16" rx="2" fill="rgba(100,160,220,0.5)" stroke="rgba(160,200,240,0.5)" stroke-width="0.8"/>
-    <rect x="42"  y="16" width="22" height="16" rx="2" fill="rgba(100,160,220,0.5)" stroke="rgba(160,200,240,0.5)" stroke-width="0.8"/>
-    <rect x="74"  y="16" width="22" height="16" rx="2" fill="rgba(100,160,220,0.5)" stroke="rgba(160,200,240,0.5)" stroke-width="0.8"/>
-    <rect x="106" y="16" width="22" height="16" rx="2" fill="rgba(100,160,220,0.5)" stroke="rgba(160,200,240,0.5)" stroke-width="0.8"/>
-    <rect x="138" y="16" width="22" height="16" rx="2" fill="rgba(100,160,220,0.5)" stroke="rgba(160,200,240,0.5)" stroke-width="0.8"/>
-    <!-- Window shine -->
-    <rect x="11" y="17" width="7" height="5" rx="1" fill="rgba(255,255,255,0.2)"/>
-    <rect x="43" y="17" width="7" height="5" rx="1" fill="rgba(255,255,255,0.2)"/>
-    <rect x="75" y="17" width="7" height="5" rx="1" fill="rgba(255,255,255,0.2)"/>
-    <rect x="107" y="17" width="7" height="5" rx="1" fill="rgba(255,255,255,0.2)"/>
-    <!-- Passenger silhouettes in windows -->
-    <circle cx="18" cy="22" r="4" fill="rgba(40,60,100,0.5)"/>
-    <circle cx="50" cy="22" r="4" fill="rgba(40,60,100,0.5)"/>
-    <circle cx="82" cy="22" r="4" fill="rgba(40,60,100,0.5)"/>
-    <!-- Door -->
-    <rect x="160" y="15" width="15" height="60" rx="1" fill="rgba(150,170,190,0.4)" stroke="rgba(130,150,170,0.5)" stroke-width="0.5"/>
-    <!-- Undercarriage + bogies -->
-    <rect x="0" y="80" width="180" height="6" rx="1" fill="#1a2030"/>
-    <!-- Bogie 1 -->
-    <g transform="translate(40, 86)">
+  <svg viewBox="0 0 180 110" fill="none" overflow="visible">
+    <rect x="0" y="15" width="180" height="73" fill="url(#paxBody)" stroke="#9aabad" stroke-width="0.5"/>
+    <rect x="0" y="10" width="180" height="20" rx="2" fill="#1a2a40"/>
+    <rect x="0" y="42" width="180" height="14" fill="#0044bb" opacity="0.9"/>
+    <rect x="0" y="75" width="180" height="8" fill="#ff6600" opacity="0.85"/>
+    <rect x="10" y="20" width="22" height="16" rx="2" fill="rgba(100,160,220,0.5)" stroke="rgba(160,200,240,0.5)" stroke-width="0.8"/>
+    <rect x="42" y="20" width="22" height="16" rx="2" fill="rgba(100,160,220,0.5)" stroke="rgba(160,200,240,0.5)" stroke-width="0.8"/>
+    <g transform="translate(40, 93)">
       <rect x="-22" y="0" width="44" height="7" rx="2" fill="#1a2535"/>
-      <circle cx="-12" cy="9" r="7" fill="#1a2030" stroke="#3a5070" stroke-width="1.5" class="wheel-spin"/>
-      <circle cx="-12" cy="9" r="2.5" fill="#2a3a50"/>
-      <circle cx="12"  cy="9" r="7" fill="#1a2030" stroke="#3a5070" stroke-width="1.5" class="wheel-spin"/>
-      <circle cx="12"  cy="9" r="2.5" fill="#2a3a50"/>
+      <circle cx="-12" cy="10" r="8" fill="#1a2030" stroke="#3a5070" stroke-width="1.5" class="wheel-spin"/>
+      <circle cx="12" cy="10" r="8" fill="#1a2030" stroke="#3a5070" stroke-width="1.5" class="wheel-spin"/>
     </g>
-    <!-- Bogie 2 -->
-    <g transform="translate(140, 86)">
+    <g transform="translate(140, 93)">
       <rect x="-22" y="0" width="44" height="7" rx="2" fill="#1a2535"/>
-      <circle cx="-12" cy="9" r="7" fill="#1a2030" stroke="#3a5070" stroke-width="1.5" class="wheel-spin"/>
-      <circle cx="-12" cy="9" r="2.5" fill="#2a3a50"/>
-      <circle cx="12"  cy="9" r="7" fill="#1a2030" stroke="#3a5070" stroke-width="1.5" class="wheel-spin"/>
-      <circle cx="12"  cy="9" r="2.5" fill="#2a3a50"/>
+      <circle cx="-12" cy="10" r="8" fill="#1a2030" stroke="#3a5070" stroke-width="1.5" class="wheel-spin"/>
+      <circle cx="12" cy="10" r="8" fill="#1a2030" stroke="#3a5070" stroke-width="1.5" class="wheel-spin"/>
     </g>
-    <!-- Speed strip -->
-    <rect x="0" y="53" width="180" height="2" rx="1" fill="rgba(0,150,255,0.35)"/>
-    <ellipse cx="90" cy="105" rx="80" ry="5" fill="rgba(0,80,200,0.15)"/>
   </svg>
 </div>
 
-<!-- ══ CARGO CAR ══ -->
-<div class="car">
-  <svg viewBox="0 0 190 90" fill="none" overflow="visible">
-    <defs>
-      <linearGradient id="cargoBody" x1="0" y1="0" x2="0" y2="1">
-        <stop offset="0%" stop-color="#b0c0cc"/>
-        <stop offset="50%" stop-color="#c8d4dc"/>
-        <stop offset="100%" stop-color="#6a7a88"/>
-      </linearGradient>
-      <linearGradient id="cargoContainer" x1="0" y1="0" x2="0" y2="1">
-        <stop offset="0%" stop-color="#c85500"/>
-        <stop offset="50%" stop-color="#e86000"/>
-        <stop offset="100%" stop-color="#a04000"/>
-      </linearGradient>
-      <linearGradient id="cargoContainer2" x1="0" y1="0" x2="0" y2="1">
-        <stop offset="0%" stop-color="#1144aa"/>
-        <stop offset="50%" stop-color="#1a55cc"/>
-        <stop offset="100%" stop-color="#0a3080"/>
-      </linearGradient>
-    </defs>
-    <!-- Flatbed -->
-    <rect x="0" y="60" width="190" height="14" fill="url(#cargoBody)" stroke="#8a9aaa" stroke-width="0.5"/>
-    <!-- Container 1 (orange - EGK freight) -->
-    <rect x="5"  y="12" width="85" height="50" rx="2" fill="url(#cargoContainer)"/>
-    <rect x="5"  y="12" width="85" height="8"  rx="2" fill="rgba(255,150,80,0.4)"/>
-    <!-- Container ribs -->
-    <line x1="20"  y1="12" x2="20"  y2="62" stroke="rgba(80,30,0,0.4)" stroke-width="1"/>
-    <line x1="35"  y1="12" x2="35"  y2="62" stroke="rgba(80,30,0,0.4)" stroke-width="1"/>
-    <line x1="50"  y1="12" x2="50"  y2="62" stroke="rgba(80,30,0,0.4)" stroke-width="1"/>
-    <line x1="65"  y1="12" x2="65"  y2="62" stroke="rgba(80,30,0,0.4)" stroke-width="1"/>
-    <line x1="80"  y1="12" x2="80"  y2="62" stroke="rgba(80,30,0,0.4)" stroke-width="1"/>
-    <!-- EGK text on cargo container -->
-    <text x="47" y="42" font-family="Bebas Neue, Arial Black" font-size="14" fill="white" text-anchor="middle" opacity="0.9" font-weight="bold">EGK</text>
-    <text x="47" y="54" font-family="Rajdhani, Arial" font-size="6" fill="rgba(255,200,150,0.8)" text-anchor="middle" letter-spacing="1">FREIGHT</text>
-
-    <!-- Container 2 (blue) -->
-    <rect x="100" y="12" width="85" height="50" rx="2" fill="url(#cargoContainer2)"/>
-    <rect x="100" y="12" width="85" height="8"  rx="2" fill="rgba(100,150,220,0.4)"/>
-    <!-- Container ribs -->
-    <line x1="115" y1="12" x2="115" y2="62" stroke="rgba(0,20,60,0.4)" stroke-width="1"/>
-    <line x1="130" y1="12" x2="130" y2="62" stroke="rgba(0,20,60,0.4)" stroke-width="1"/>
-    <line x1="145" y1="12" x2="145" y2="62" stroke="rgba(0,20,60,0.4)" stroke-width="1"/>
-    <line x1="160" y1="12" x2="160" y2="62" stroke="rgba(0,20,60,0.4)" stroke-width="1"/>
-    <line x1="175" y1="12" x2="175" y2="62" stroke="rgba(0,20,60,0.4)" stroke-width="1"/>
-    <text x="142" y="42" font-family="Bebas Neue, Arial Black" font-size="14" fill="white" text-anchor="middle" opacity="0.9" font-weight="bold">CARGO</text>
-    <text x="142" y="54" font-family="Rajdhani, Arial" font-size="6" fill="rgba(150,200,255,0.8)" text-anchor="middle" letter-spacing="1">HIGH-SPEED</text>
-
-    <!-- Undercarriage + bogies -->
-    <rect x="0" y="74" width="190" height="6" rx="1" fill="#1a2030"/>
-    <g transform="translate(45, 80)">
-      <rect x="-22" y="0" width="44" height="7" rx="2" fill="#1a2535"/>
-      <circle cx="-12" cy="9" r="7" fill="#1a2030" stroke="#3a5070" stroke-width="1.5" class="wheel-spin"/>
-      <circle cx="-12" cy="9" r="2.5" fill="#2a3a50"/>
-      <circle cx="12"  cy="9" r="7" fill="#1a2030" stroke="#3a5070" stroke-width="1.5" class="wheel-spin"/>
-      <circle cx="12"  cy="9" r="2.5" fill="#2a3a50"/>
-    </g>
-    <g transform="translate(145, 80)">
-      <rect x="-22" y="0" width="44" height="7" rx="2" fill="#1a2535"/>
-      <circle cx="-12" cy="9" r="7" fill="#1a2030" stroke="#3a5070" stroke-width="1.5" class="wheel-spin"/>
-      <circle cx="-12" cy="9" r="2.5" fill="#2a3a50"/>
-      <circle cx="12"  cy="9" r="7" fill="#1a2030" stroke="#3a5070" stroke-width="1.5" class="wheel-spin"/>
-      <circle cx="12"  cy="9" r="2.5" fill="#2a3a50"/>
-    </g>
-    <ellipse cx="95" cy="105" rx="85" ry="5" fill="rgba(0,80,200,0.12)"/>
-  </svg>
-</div>
-
-<!-- ══ PASSENGER CAR 2 ══ -->
 <div class="pax">
-  <svg viewBox="0 0 180 88" fill="none" overflow="visible">
-    <!-- Body -->
-    <rect x="0" y="12" width="180" height="70" fill="url(#paxBody)" stroke="#9aabad" stroke-width="0.5"/>
-    <!-- Roof -->
-    <rect x="0" y="8" width="180" height="18" rx="2" fill="#1a2a40"/>
-    <!-- Blue stripe -->
-    <rect x="0" y="40" width="180" height="13" fill="#0044bb" opacity="0.9"/>
-    <!-- Orange lower -->
-    <rect x="0" y="73" width="180" height="7" fill="#ff6600" opacity="0.85"/>
-    <!-- Windows -->
-    <rect x="10"  y="16" width="22" height="16" rx="2" fill="rgba(100,160,220,0.5)" stroke="rgba(160,200,240,0.5)" stroke-width="0.8"/>
-    <rect x="42"  y="16" width="22" height="16" rx="2" fill="rgba(100,160,220,0.5)" stroke="rgba(160,200,240,0.5)" stroke-width="0.8"/>
-    <rect x="74"  y="16" width="22" height="16" rx="2" fill="rgba(100,160,220,0.5)" stroke="rgba(160,200,240,0,0.5)" stroke-width="0.8"/>
-    <rect x="74"  y="16" width="22" height="16" rx="2" fill="rgba(100,160,220,0.5)" stroke="rgba(160,200,240,0.5)" stroke-width="0.8"/>
-    <rect x="106" y="16" width="22" height="16" rx="2" fill="rgba(100,160,220,0.5)" stroke="rgba(160,200,240,0.5)" stroke-width="0.8"/>
-    <rect x="138" y="16" width="22" height="16" rx="2" fill="rgba(100,160,220,0.5)" stroke="rgba(160,200,240,0.5)" stroke-width="0.8"/>
-    <!-- Shine -->
-    <rect x="11" y="17" width="7" height="5" rx="1" fill="rgba(255,255,255,0.2)"/>
-    <rect x="43" y="17" width="7" height="5" rx="1" fill="rgba(255,255,255,0.2)"/>
-    <rect x="75" y="17" width="7" height="5" rx="1" fill="rgba(255,255,255,0.2)"/>
-    <!-- Silhouettes -->
-    <circle cx="18" cy="22" r="4" fill="rgba(40,60,100,0.5)"/>
-    <circle cx="114" cy="22" r="4" fill="rgba(40,60,100,0.5)"/>
-    <circle cx="146" cy="22" r="4" fill="rgba(40,60,100,0.5)"/>
-    <!-- Door -->
-    <rect x="3" y="15" width="5" height="60" rx="1" fill="rgba(150,170,190,0.4)" stroke="rgba(130,150,170,0.5)" stroke-width="0.5"/>
-    <!-- Undercarriage -->
-    <rect x="0" y="80" width="180" height="6" rx="1" fill="#1a2030"/>
-    <g transform="translate(40, 86)">
+  <svg viewBox="0 0 180 110" fill="none" overflow="visible">
+    <rect x="0" y="15" width="180" height="73" fill="url(#paxBody)" stroke="#9aabad" stroke-width="0.5"/>
+    <rect x="0" y="10" width="180" height="20" rx="2" fill="#1a2a40"/>
+    <rect x="0" y="42" width="180" height="14" fill="#0044bb" opacity="0.9"/>
+    <rect x="0" y="75" width="180" height="8" fill="#ff6600" opacity="0.85"/>
+    <rect x="10" y="20" width="22" height="16" rx="2" fill="rgba(100,160,220,0.5)" stroke="rgba(160,200,240,0.5)" stroke-width="0.8"/>
+    <rect x="42" y="20" width="22" height="16" rx="2" fill="rgba(100,160,220,0.5)" stroke="rgba(160,200,240,0.5)" stroke-width="0.8"/>
+    <g transform="translate(40, 93)">
       <rect x="-22" y="0" width="44" height="7" rx="2" fill="#1a2535"/>
-      <circle cx="-12" cy="9" r="7" fill="#1a2030" stroke="#3a5070" stroke-width="1.5" class="wheel-spin"/>
-      <circle cx="-12" cy="9" r="2.5" fill="#2a3a50"/>
-      <circle cx="12"  cy="9" r="7" fill="#1a2030" stroke="#3a5070" stroke-width="1.5" class="wheel-spin"/>
-      <circle cx="12"  cy="9" r="2.5" fill="#2a3a50"/>
+      <circle cx="-12" cy="10" r="8" fill="#1a2030" stroke="#3a5070" stroke-width="1.5" class="wheel-spin"/>
+      <circle cx="12" cy="10" r="8" fill="#1a2030" stroke="#3a5070" stroke-width="1.5" class="wheel-spin"/>
     </g>
-    <g transform="translate(140, 86)">
+    <g transform="translate(140, 93)">
       <rect x="-22" y="0" width="44" height="7" rx="2" fill="#1a2535"/>
-      <circle cx="-12" cy="9" r="7" fill="#1a2030" stroke="#3a5070" stroke-width="1.5" class="wheel-spin"/>
-      <circle cx="-12" cy="9" r="2.5" fill="#2a3a50"/>
-      <circle cx="12"  cy="9" r="7" fill="#1a2030" stroke="#3a5070" stroke-width="1.5" class="wheel-spin"/>
-      <circle cx="12"  cy="9" r="2.5" fill="#2a3a50"/>
+      <circle cx="-12" cy="10" r="8" fill="#1a2030" stroke="#3a5070" stroke-width="1.5" class="wheel-spin"/>
+      <circle cx="12" cy="10" r="8" fill="#1a2030" stroke="#3a5070" stroke-width="1.5" class="wheel-spin"/>
     </g>
-    <rect x="0" y="53" width="180" height="2" rx="1" fill="rgba(0,150,255,0.35)"/>
-    <ellipse cx="90" cy="105" rx="80" ry="5" fill="rgba(0,80,200,0.15)"/>
   </svg>
 </div>
 
-<!-- ══ TAIL (Eurostar rear) ══ -->
 <div class="tail">
   <svg viewBox="0 0 140 110" fill="none" overflow="visible">
-    <defs>
-      <linearGradient id="tailGrad" x1="1" y1="0" x2="0" y2="0">
-        <stop offset="0%" stop-color="#c0ccd8"/>
-        <stop offset="60%" stop-color="#e0ecf8"/>
-        <stop offset="100%" stop-color="#a0b0c0"/>
-      </linearGradient>
-      <linearGradient id="tailNose" x1="1" y1="0" x2="0" y2="0">
-        <stop offset="0%" stop-color="#a0b0c0"/>
-        <stop offset="40%" stop-color="#dde8f0"/>
-        <stop offset="100%" stop-color="#c0ccd8"/>
-      </linearGradient>
-    </defs>
-    <!-- Body -->
     <path d="M0,15 L90,15 L90,88 L0,88 Z" fill="url(#tailGrad)" stroke="#9aabad" stroke-width="0.5"/>
-    <!-- Pointed tail nose -->
     <path d="M90,15 Q110,25 135,50 Q110,75 90,88 L90,15 Z" fill="url(#tailNose)" stroke="#8899aa" stroke-width="0.5"/>
-    <!-- Roof -->
     <rect x="0" y="10" width="90" height="20" rx="2" fill="#1a2a40"/>
     <path d="M90,10 Q110,12 128,30 L90,30 Z" fill="#1a2a40"/>
-    <!-- Blue stripe -->
     <rect x="0" y="42" width="135" height="14" fill="#0044bb" opacity="0.9"/>
-    <path d="M135,42 Q137,48 135,56 L135,42 Z" fill="#0044bb"/>
-    <!-- Orange lower -->
     <rect x="0" y="75" width="90" height="8" fill="#ff6600" opacity="0.85"/>
-    <!-- Rear windows -->
-    <rect x="10" y="16" width="22" height="16" rx="2" fill="rgba(100,160,220,0.5)" stroke="rgba(160,200,240,0.5)" stroke-width="0.8"/>
-    <rect x="42" y="16" width="22" height="16" rx="2" fill="rgba(100,160,220,0.5)" stroke="rgba(160,200,240,0.5)" stroke-width="0.8"/>
-    <rect x="68" y="16" width="18" height="16" rx="2" fill="rgba(100,160,220,0.5)" stroke="rgba(160,200,240,0.5)" stroke-width="0.8"/>
-    <!-- Rear windscreen -->
-    <path d="M90,18 Q105,22 118,38 L90,38 Z" fill="rgba(100,160,220,0.45)" stroke="rgba(160,210,255,0.4)" stroke-width="0.8"/>
-    <!-- Tail lights -->
-    <circle cx="128" cy="42" r="5" fill="#ff2200" opacity="0.9"/>
-    <circle cx="128" cy="58" r="4" fill="#ff4400" opacity="0.8"/>
-    <!-- Tail light glow -->
-    <circle cx="128" cy="42" r="9" fill="rgba(255,50,0,0.2)"/>
-    <!-- Undercarriage -->
-    <rect x="0" y="85" width="90" height="8" rx="2" fill="#1a2030" stroke="#2a3040" stroke-width="0.5"/>
-    <!-- Bogies -->
     <g transform="translate(30, 93)">
       <rect x="-22" y="0" width="44" height="7" rx="2" fill="#1a2535"/>
-      <circle cx="-12" cy="9" r="7" fill="#1a2030" stroke="#3a5070" stroke-width="1.5" class="wheel-spin"/>
-      <circle cx="-12" cy="9" r="2.5" fill="#2a3a50"/>
-      <circle cx="12"  cy="9" r="7" fill="#1a2030" stroke="#3a5070" stroke-width="1.5" class="wheel-spin"/>
-      <circle cx="12"  cy="9" r="2.5" fill="#2a3a50"/>
+      <circle cx="-12" cy="10" r="8" fill="#1a2030" stroke="#3a5070" stroke-width="1.5" class="wheel-spin"/>
+      <circle cx="12" cy="10" r="8" fill="#1a2030" stroke="#3a5070" stroke-width="1.5" class="wheel-spin"/>
     </g>
-    <g transform="translate(78, 93)">
-      <rect x="-22" y="0" width="44" height="7" rx="2" fill="#1a2535"/>
-      <circle cx="-12" cy="9" r="7" fill="#1a2030" stroke="#3a5070" stroke-width="1.5" class="wheel-spin"/>
-      <circle cx="-12" cy="9" r="2.5" fill="#2a3a50"/>
-      <circle cx="12"  cy="9" r="7" fill="#1a2030" stroke="#3a5070" stroke-width="1.5" class="wheel-spin"/>
-      <circle cx="12"  cy="9" r="2.5" fill="#2a3a50"/>
-    </g>
-    <!-- Rear tail glow -->
-    <ellipse cx="70" cy="108" rx="70" ry="5" fill="rgba(0,80,200,0.18)"/>
   </svg>
 </div>
-```
 
   </div><!-- /.train -->
 </div><!-- /.train-scene -->
